@@ -1,7 +1,6 @@
 const passBox = document.getElementById("pass-box")
 const passInput = document.getElementById('pass')
 const loginInput = document.getElementById('login')
-let password = ''
 
 function generatePasswordBox() {
     passBox.innerHTML = ""
@@ -27,17 +26,10 @@ function checkValidity(n) {
     return Number.isInteger(n) && n >= 0 && n <= 9
 }
 
-function setPassword(n) {
-    if (!checkValidity(n)) return
-    password += n
-    passInput.value = password
-}
-
 function resetPassword() {
     generatePasswordBox()
     addNumbersToPasswordBox()
-    password = ""
-    passInput.value = password
+    passInput.value = ""
 }
 
 async function fetchData(url, formData) {
@@ -56,28 +48,32 @@ async function fetchData(url, formData) {
 
 async function tryLogin() {
 
+    document.getElementById('message').textContent = ''
+
     if(loginInput.value == '') {
         loginInput.style.boxShadow = '0px 0px 3px 1px red'
+    } else if(!loginInput.value.match(/[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}/)) {
+        document.getElementById('message').textContent += 'Vous devez saisir une adresse mail valide ! '
+        document.getElementById('message').classList.remove('hidden')
     }
 
     let formData = new FormData();
     formData.append('login', loginInput.value);
-    formData.append('password', password);
+    formData.append('password', passInput.value);
 
     try{
         response = await fetchData('https://www.ericfreelance.fr/api/check_user.php', formData)
-        document.getElementById('message').textContent = response.message
+        document.getElementById('message').textContent += response.message
         document.getElementById('message').classList.remove('hidden')
         if(!response.check) resetPassword()
     } catch(e) {
-        console.log(e)
-        throw new Error(`Erreur : ${response.status}`);
+        throw new Error(`Erreur : ${e.message}`);
     }
 }
 
 resetPassword()
 passBox.addEventListener("click", (e) => {
-    if (e.target.getAttribute('value')) setPassword(e.target.getAttribute('value'))
+    if (e.target.getAttribute('value') && checkValidity(e.target.getAttribute('value'))) passInput.value += e.target.getAttribute('value')
 })
 loginInput.addEventListener('change', () => {
     if(loginInput.value != '') loginInput.style.boxShadow = ''
