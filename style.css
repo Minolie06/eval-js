@@ -1,0 +1,164 @@
+:root {
+  --color-accent: rgb(0, 123, 255);
+  --color-bg: rgb(234,234,234);
+  --color-bg-darker: rgb(204, 204, 204);
+  --color-message-bg: rgb(255, 243, 205);
+  --color-message-text: rgb(133, 100, 29);
+  --color-text: rgb(33, 37, 41);
+  --color-warning: rgb(255, 94, 94);
+  --size: 75px
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  padding: 3rem 0;
+}
+
+.hidden {
+  display: none;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+
+.responsive {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.responsive.box {
+  display: grid;
+  grid-template-columns: 6fr 4fr;
+  gap: 2rem;
+}
+
+@media screen and (max-width: 950px) {
+  .responsive {
+    max-width: 600px;
+  }
+  .responsive.box {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .responsive {
+    width: 100%;
+  }
+  body {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+}
+
+@media screen and (max-width: 400px) {
+  :root {
+    --size: 60px;
+  }
+
+}
+
+
+.message {
+  margin-bottom: 1rem;
+  background-color: var(--color-message-bg);
+  color: var(--color-message-text);
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.box {
+  min-height: 200px;
+  background-color: white;
+  padding: 1.5rem;
+}
+
+.box .input-wrapper input {
+  width: 100%;
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+  padding: .5rem;
+  border: 1px solid var(--color-bg);
+  border-radius: 5px;
+}
+
+.box .input-wrapper input::placeholder {
+  color: #888
+}
+
+.box .input-wrapper .pass-box {
+  display: grid;
+  grid-template-columns: repeat(4, var(--size));
+  grid-template-rows: repeat(4, var(--size));
+  gap: 0.5rem;
+  width: fit-content;
+  margin: 1rem auto;
+}
+
+.box .input-wrapper .pass-box .pass-item {
+  background-color: var(--color-bg);
+  width: 100%;
+  height: 100%;
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box .input-wrapper .pass-box .pass-item.number {
+  background-color: var(--color-bg-darker);
+}
+
+.box .input-wrapper .button {
+  border: none;
+  background-color: var(--color-accent);
+  color: white;
+  padding: .75rem;
+  margin-top: .5rem;
+  border-radius: 4px;
+
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.box .help-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.box .help-wrapper a {
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: .5rem;
+  text-decoration: none;
+}
+
+.box .help-wrapper svg {
+  vertical-align: top;
+  height: 1rem;
+  margin-right: .75rem;
+  fill: currentColor
+}
+
+
+.box .help-wrapper p {
+  padding: 1rem;
+  background-color: var(--color-bg);
+  border-radius: 5px;
+  margin-top: 1.5rem;
+  line-height: 1.5rem;
+}
+
